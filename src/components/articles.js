@@ -4,8 +4,8 @@ import './articles.css';
 function Articles() {
 
     const [showArticles, setshowArticles] = useState()
-    const aempublishurl = 'https://publish-p55117-e571178.adobeaemcloud.com';
-    const aemauthorurl = 'https://author-p55117-e571178.adobeaemcloud.com';
+    const aempublishurl = 'https://publish-p92819-e844539.adobeaemcloud.com';
+    const aemauthorurl = 'https://author-p92819-e844539.adobeaemcloud.com';
     const aemurl = `/graphql/execute.json/securbank/ArticleList?ts=${Math.random()*1000}`;
     let displayData
     let options = {credentials: "include"};
@@ -17,6 +17,7 @@ function Articles() {
         if(window.location && window.location.ancestorOrigins.length > 0) {
             url = aemauthorurl + aemurl
         }
+        console.log(url);
         const response = await fetch(url, options)
         // TODO - Add error handling here
         const responseData = await response.json()
@@ -27,7 +28,8 @@ function Articles() {
         console.log(responseData)
         displayData = responseData.data.articleList.items.map(function(article,index) {
             itemId =  "urn:aemconnection:" + article._path + "/jcr:content/data/master";
-            imageURL = aempublishurl + article.heroImage._dynamicUrl + "&width=470";
+            //imageURL = aempublishurl + article.heroImage._dynamicUrl + "&width=470";
+            imageURL = aempublishurl + article.heroImage._publishUrl + "&width=470";
 
             return(
                 <li key={index} itemScope itemID={itemId} itemType="reference" itemfilter="cf">
