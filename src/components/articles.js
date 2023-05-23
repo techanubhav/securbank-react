@@ -29,7 +29,8 @@ function Articles() {
         displayData = responseData.data.articleList.items.map(function(article,index) {
             itemId =  "urn:aemconnection:" + article._path + "/jcr:content/data/master";
             //imageURL = aempublishurl + article.heroImage._dynamicUrl + "&width=470";
-            imageURL = aempublishurl + article.heroImage._publishUrl + "&width=470";
+            //imageURL = aempublishurl + article.heroImage._publishUrl + "&width=470";
+            imageURL = article.heroImage._publishUrl;
 
             return(
                 <li key={index} itemScope itemID={itemId} itemType="reference" itemfilter="cf">
