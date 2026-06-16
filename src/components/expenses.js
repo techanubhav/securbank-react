@@ -13,7 +13,6 @@ import {
     GridComponent,
     TooltipComponent,
     TitleComponent,
-    DatasetComponent,
 } from 'echarts/components';
 // Import renderer, note that introducing the CanvasRenderer or SVGRenderer is a required step
 import {
@@ -112,7 +111,9 @@ export default function Expenses() {
                     trigger: 'item',
                     responsive: true,
                     position: 'top',
-                    formatter: '${c}',
+                    formatter: function (params) {
+                        return '$' + params.value;
+                    },
                     backgroundColor: '#2C2C2C',
                     borderColor: '#2C2C2C',
                     borderWidth: '0.8',

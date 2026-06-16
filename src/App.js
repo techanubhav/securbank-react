@@ -23,9 +23,9 @@ function App() {
             <div>
               <ul>
                 <li><strong>Dashboard</strong></li>
-                <li><a href="#">Saving Account</a></li>
-                <li><a href="#">Transactions</a></li>
-                <li><a href="#">Cards</a></li>
+                <li><a href="/saving-account">Saving Account</a></li>
+                <li><a href="/transactions">Transactions</a></li>
+                <li><a href="/cards">Cards</a></li>
               </ul>
             </div>
             <div>
