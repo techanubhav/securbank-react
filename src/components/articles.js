@@ -6,14 +6,11 @@ function Articles() {
     const [error, setError] = useState(null)
 
     const aempublishurl = process.env.REACT_APP_HOST_URI || 'https://publish-p93711-e854864.adobeaemcloud.com';
-    const aemauthorurl = process.env.REACT_APP_AEM_AUTHOR_URI || 'https://author-p93711-e854864.adobeaemcloud.com';
 
     useEffect(() => {
         async function fetchCF() {
             const queryPath = `/graphql/execute.json/securbank/ArticleList?ts=${Date.now()}`;
-            const isAuthoring = window.location?.ancestorOrigins?.length > 0;
-            const baseUrl = isAuthoring ? aemauthorurl : aempublishurl;
-            const url = baseUrl + queryPath;
+            const url = aempublishurl + queryPath;
 
             try {
                 const response = await fetch(url, { credentials: "include" });
@@ -38,7 +35,7 @@ function Articles() {
         }
 
         fetchCF();
-    }, [aemauthorurl, aempublishurl]);
+    }, [aempublishurl]);
 
     if (error) {
         return <p className="articleStatus">Unable to load articles: {error}</p>;
@@ -55,7 +52,7 @@ function Articles() {
     return (
         <ul className="articleList">
             {articles.map((article) => {
-                const itemId = `urn:aemconnection:${article._path}/jcr:content/data/master`;
+                const resource = `urn:aemconnection:${article._path}/jcr:content/data/master`;
                 const imageURL = article.heroImage?._dynamicUrl
                     ? `${aempublishurl}${article.heroImage._dynamicUrl}&width=470`
                     : article.heroImage?._publishUrl
@@ -63,18 +60,45 @@ function Articles() {
                         : null;
 
                 return (
-                    <li key={article._path} itemScope itemID={itemId} itemType="reference" itemfilter="cf">
-                        {imageURL && (
+                    <li
+                        key={article._path}
+                        data-aue-resource={resource}
+                        data-aue-type="reference"
+                        data-aue-filter="cf"
+                        data-aue-label={article.headline}
+                    >
+                        {imageURL ? (
                             <img
-                                itemProp="heroImage"
-                                itemType="image"
+                                data-aue-prop="heroImage"
+                                data-aue-type="image"
+                                data-aue-label="Hero image"
                                 className="articleImage"
                                 src={imageURL}
                                 alt=""
                             />
+                        ) : (
+                            <div
+                                data-aue-prop="heroImage"
+                                data-aue-type="image"
+                                data-aue-label="Hero image"
+                                className="articleImage articleImage--empty"
+                                aria-hidden="true"
+                            />
                         )}
-                        <h5 itemProp="headline" itemType="text" className="articleHeading">{article.headline}</h5>
-                        <div itemProp="main" itemType="richtext" className="articleDescription">
+                        <h5
+                            data-aue-prop="headline"
+                            data-aue-type="text"
+                            data-aue-label="Headline"
+                            className="articleHeading"
+                        >
+                            {article.headline}
+                        </h5>
+                        <div
+                            data-aue-prop="main"
+                            data-aue-type="richtext"
+                            data-aue-label="Main text"
+                            className="articleDescription"
+                        >
                             {article.main?.plaintext}
                         </div>
                     </li>

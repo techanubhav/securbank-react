@@ -20,6 +20,10 @@
     object-fit: cover;
 }
 
+.articleImage--empty {
+    background: #ececec;
+}
+
 .articleHeading {
     text-align: left;
     font: normal normal 800 24px/30px adobe-clean;
