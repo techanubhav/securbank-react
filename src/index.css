@@ -55,6 +55,22 @@ body.appear {
   display: unset;
 }
 
+/* Allow scrolling when the app is embedded in Universal Editor */
+html.ue-iframe,
+html.ue-iframe body {
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+html.ue-iframe #root,
+html.ue-iframe .App {
+  height: auto;
+  min-height: 100%;
+  overflow: visible;
+}
+
 header {
   height: calc(var(--nav-height) + 40px);
 }
