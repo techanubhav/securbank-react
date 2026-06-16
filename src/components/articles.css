@@ -38,3 +38,10 @@
     margin-bottom: 25px;
     margin-top: 10px;
 }
+
+.articleStatus {
+    text-align: center;
+    font: normal normal normal 18px/24px adobe-clean;
+    color: #2C2C2C;
+    padding: 24px 0;
+}
