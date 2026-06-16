@@ -55,20 +55,27 @@ body.appear {
   display: unset;
 }
 
-/* Allow scrolling when the app is embedded in Universal Editor */
+/* Universal Editor sizes the iframe from document height; avoid internal scroll containers. */
 html.ue-iframe,
-html.ue-iframe body {
-  height: auto;
-  min-height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
+html.adobe-ue-edit,
+html.adobe-ue-preview {
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
 }
 
+html.ue-iframe body,
+html.adobe-ue-edit body,
+html.adobe-ue-preview body,
 html.ue-iframe #root,
-html.ue-iframe .App {
-  height: auto;
-  min-height: 100%;
-  overflow: visible;
+html.adobe-ue-edit #root,
+html.adobe-ue-preview #root,
+html.ue-iframe .App,
+html.adobe-ue-edit .App,
+html.adobe-ue-preview .App {
+  height: auto !important;
+  min-height: 0 !important;
+  overflow: visible !important;
 }
 
 header {

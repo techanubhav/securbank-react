@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import logo from './resources/SecurBank_Logo_Main.svg';
 import bell from './resources/bell.svg';
 import banner from './resources/banner.png';
@@ -9,8 +10,13 @@ import Transactions from './components/transactions';
 import Expenses from './components/expenses';
 import Accountbalance from './components/accountbalance';
 import Footer from './components/footer';
+import { notifyUniversalEditorResize } from './universalEditor';
 
 function App() {
+  useEffect(() => {
+    notifyUniversalEditorResize();
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">

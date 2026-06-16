@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { notifyUniversalEditorResize } from '../universalEditor';
 import './articles.css';
 
 function Articles() {
@@ -36,6 +37,31 @@ function Articles() {
 
         fetchCF();
     }, [aempublishurl]);
+
+    useEffect(() => {
+        if (articles !== null) {
+            notifyUniversalEditorResize();
+        }
+    }, [articles]);
+
+    useEffect(() => {
+        if (articles === null) {
+            return undefined;
+        }
+
+        const handleImageLoad = () => notifyUniversalEditorResize();
+        const images = document.querySelectorAll('.articleImage[src]');
+
+        images.forEach((image) => {
+            image.addEventListener('load', handleImageLoad);
+        });
+
+        return () => {
+            images.forEach((image) => {
+                image.removeEventListener('load', handleImageLoad);
+            });
+        };
+    }, [articles]);
 
     if (error) {
         return <p className="articleStatus">Unable to load articles: {error}</p>;
